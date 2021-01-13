@@ -30,6 +30,8 @@ namespace issue_tracker
             
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");  
             services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+           services.AddDbContext<IssueContext>(options =>
+                options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
             
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

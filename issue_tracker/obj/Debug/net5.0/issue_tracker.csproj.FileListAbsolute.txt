@@ -57,7 +57,6 @@ C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\iss
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\ref\issue_tracker.dll
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\issue_tracker.pdb
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\issue_tracker.genruntimeconfig.cache
-C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\bin\Debug\net5.0\app.db
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\bin\Debug\net5.0\MySqlConnector.dll
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\bin\Debug\net5.0\Pomelo.EntityFrameworkCore.MySql.dll
