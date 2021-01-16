@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using issue_tracker.Data;
 
 namespace issue_tracker.Migrations.Issue
 {
     [DbContext(typeof(IssueContext))]
-    partial class IssueContextModelSnapshot : ModelSnapshot
+    [Migration("20210116123137_IssueInitial")]
+    partial class IssueInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -41,7 +41,6 @@ C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\iss
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\issue_tracker.TagHelpers.output.cache
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\issue_tracker.RazorCoreGenerate.cache
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
-C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -60,3 +59,5 @@ C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\iss
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\bin\Debug\net5.0\MySqlConnector.dll
 C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\bin\Debug\net5.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\Razor\Views\Home\Dashboard.cshtml.g.cs
+C:\Users\User\RiderProjects\issue_tracker_app\issue_tracker\obj\Debug\net5.0\Razor\Views\Issue\Data.cshtml.g.cs

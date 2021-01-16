@@ -18,7 +18,7 @@ namespace issue_tracker.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Dashboard()
         {
             return View();
         }

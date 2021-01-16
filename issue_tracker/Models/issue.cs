@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 
 namespace issue_tracker.Models
 {
-    public class ApplicationUser : IdentityUser
-    {
-        ICollection<Issue> Issues { get; set; }
-    }
     public enum Priority
     {
         low, medium, high, critical
@@ -25,7 +22,9 @@ namespace issue_tracker.Models
         public Priority? Priority { get; set; }
         public Phase? Phase { get; set; }
         public DateTime AddDate { get; set; }
-        public virtual ApplicationUser Author { get; set; }
+        [AllowNull]
+        public int Author { get; set; }
+        [AllowNull]
         public int Reviewer { get; set; }   
     }
 }
