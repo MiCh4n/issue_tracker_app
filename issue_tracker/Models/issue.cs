@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 
@@ -25,7 +27,7 @@ namespace issue_tracker.Models
         [AllowNull]
         public int Author { get; set; }
         [AllowNull]
-        public int Reviewer { get; set; }   
+        public int? Reviewer { get; set; }   
     }
 }
 

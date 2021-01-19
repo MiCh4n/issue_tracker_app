@@ -2,27 +2,147 @@
 
 @{
     ViewData["Title"] = "Dashboard";
+    int number = 0;
 }
-<h1>@ViewData["Data"]</h1>
+
 <div class="container">
-        <div class="row">
-            <div class="col-sm">Title</div>
-            <div class="col-sm">Description</div>
-            <div class="col-sm">Priority</div>
-            <div class="col-sm">Author</div>
-            <div class="col-sm">Date</div>
-            <div class="col-sm">Phase</div>
+<h1 class="container-fluid"><span class="badge badge-primary">To do</span></h1>
+@foreach (var item in Model)
+{
+    if (item.Phase.ToString() == "todo")
+    {
+        <div class="container-fluid">
+        <div class="accordion" id="accordion-@number">
+            <div class="card">
+                <div class="card-header" id="headingOne-@number">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne-@number" aria-expanded="true" aria-controls="collapseOne-@number">
+                           @Html.DisplayFor(modelItem => item.Title)
+                                                                                   by @Html.DisplayFor(modelItem => item.Author)
+                            @{
+                                if (item.Priority.HasValue)
+                                {
+                                  switch (item.Priority.ToString())
+                                  {
+                                      case "low":
+                                          <text><span class="badge badge-pill badge-success ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "medium":
+                                          <text><span class="badge badge-pill badge-secondary ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "high":
+                                          <text><span class="badge badge-pill badge-warning ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "critical":
+                                          <text><span class="badge badge-pill badge-danger ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;    
+                                  }  
+                                }
+                            }
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne-@number" class="collapse" aria-labelledby="headingOne-@number" data-parent="#accordion-@number">
+                    <div class="card-body">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-@foreach (var item in Model) {
-    
-    <div class="container-fluid">
-        <div class="row">
-            @Html.DisplayFor(modelItem => item.Title)<br>
-            @Html.DisplayFor(modelItem => item.Author)<br>
-            @Html.DisplayFor(modelItem => item.AddDate)<br>
-            @Html.DisplayFor(modelItem => item.Priority)<br>
-            @Html.DisplayFor(modelItem => item.Phase)<br>
-            @Html.DisplayFor(modelItem => item.Description)<br><br>
-        </div></div>
-}
+    number += 1;
+}}
+
+<h1 class="container-fluid mt-2"><span class="badge badge-primary">In progress</span></h1>
+@foreach (var item in Model)
+{
+    if (item.Phase.ToString() == "inprogress")
+    {
+        <div class="container-fluid">
+        <div class="accordion" id="accordion-@number">
+            <div class="card">
+                <div class="card-header" id="headingOne-@number">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne-@number" aria-expanded="true" aria-controls="collapseOne-@number">
+                           @Html.DisplayFor(modelItem => item.Title)
+                                                                                   by @Html.DisplayFor(modelItem => item.Author)
+                            @{
+                                if (item.Priority.HasValue)
+                                {
+                                  switch (item.Priority.ToString())
+                                  {
+                                      case "low":
+                                          <text><span class="badge badge-pill badge-success ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "medium":
+                                          <text><span class="badge badge-pill badge-secondary ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "high":
+                                          <text><span class="badge badge-pill badge-warning ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "critical":
+                                          <text><span class="badge badge-pill badge-danger ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;    
+                                  }  
+                                }
+                            }
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne-@number" class="collapse" aria-labelledby="headingOne-@number" data-parent="#accordion-@number">
+                    <div class="card-body">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    number += 1;
+}}
+
+<h1 class="container-fluid mt-2"><span class="badge badge-primary">Done</span></h1>
+@foreach (var item in Model)
+{
+    if (item.Phase.ToString() == "done")
+    {
+        <div class="container-fluid">
+        <div class="accordion" id="accordion-@number">
+            <div class="card">
+                <div class="card-header" id="headingOne-@number">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne-@number" aria-expanded="true" aria-controls="collapseOne-@number">
+                           @Html.DisplayFor(modelItem => item.Title)
+                                                                                   by @Html.DisplayFor(modelItem => item.Author)
+                            @{
+                                if (item.Priority.HasValue)
+                                {
+                                  switch (item.Priority.ToString())
+                                  {
+                                      case "low":
+                                          <text><span class="badge badge-pill badge-success ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "medium":
+                                          <text><span class="badge badge-pill badge-secondary ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "high":
+                                          <text><span class="badge badge-pill badge-warning ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;
+                                      case "critical":
+                                          <text><span class="badge badge-pill badge-danger ml-3">@Html.DisplayFor(modelItem => item.Priority)</span></text>
+                                          break;    
+                                  }  
+                                }
+                            }
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne-@number" class="collapse" aria-labelledby="headingOne-@number" data-parent="#accordion-@number">
+                    <div class="card-body">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    number += 1;
+}}</div>

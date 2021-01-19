@@ -33,7 +33,7 @@ namespace issue_tracker
            services.AddDbContext<IssueContext>(options =>
                 options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
             
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             
             services.AddAuthentication()
@@ -75,7 +75,7 @@ namespace issue_tracker
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Dashboard}/{id?}");
+                    pattern: "{controller=Issue}/{action=Data}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
