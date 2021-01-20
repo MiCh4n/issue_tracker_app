@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using issue_tracker.Data;
 using issue_tracker.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -21,23 +22,24 @@ namespace issue_tracker.Controllers
         {
             return View(await _context.Issues.ToListAsync());
         }
-        
+        //GET      issue create
+         public IActionResult Create()
+                {
+                    return View();
+                }
+         //POST    issue create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-        public IActionResult Create()
-        {
-            return View();
-        }
-        
         public async Task<IActionResult> Create(
-            [Bind("ID,Title,Description,Priority,AddDate,Phase,Author,Reviewer")] Issue issue)
+            [Bind("Title, Description, Priority")] Issue issue)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     _context.Add(issue);
+                    issue.Phase = Phase.todo;
+                    issue.AddDate = DateTime.Now;
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Data));
                 }

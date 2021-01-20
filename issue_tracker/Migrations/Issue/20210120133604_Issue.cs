@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace issue_tracker.Migrations.Issue
 {
-    public partial class IssueInitial : Migration
+    public partial class Issue : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,9 +18,7 @@ namespace issue_tracker.Migrations.Issue
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Priority = table.Column<int>(type: "int", nullable: true),
                     Phase = table.Column<int>(type: "int", nullable: true),
-                    AddDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Author = table.Column<int>(type: "int", nullable: false),
-                    Reviewer = table.Column<int>(type: "int", nullable: false)
+                    AddDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {

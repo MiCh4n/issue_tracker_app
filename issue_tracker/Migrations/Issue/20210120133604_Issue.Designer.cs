@@ -9,8 +9,8 @@ using issue_tracker.Data;
 namespace issue_tracker.Migrations.Issue
 {
     [DbContext(typeof(IssueContext))]
-    [Migration("20210116123137_IssueInitial")]
-    partial class IssueInitial
+    [Migration("20210120133604_Issue")]
+    partial class Issue
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,6 @@ namespace issue_tracker.Migrations.Issue
                     b.Property<DateTime>("AddDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Author")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -38,9 +35,6 @@ namespace issue_tracker.Migrations.Issue
                         .HasColumnType("int");
 
                     b.Property<int?>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Reviewer")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")

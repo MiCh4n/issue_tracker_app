@@ -6,7 +6,8 @@
 }
 
 <div class="container">
-<h1 class="container-fluid"><span class="badge badge-primary">To do</span></h1>
+    <h1 class="container-fluid"><span class="badge badge-primary">To do</span>
+        <a class="text-white text-decoration-none" asp-area="" asp-controller="Issue" asp-action="Create"><button type="button" class="btn btn-success ml-1">Add</button></a></h1>
 @foreach (var item in Model)
 {
     if (item.Phase.ToString() == "todo")
@@ -16,9 +17,11 @@
             <div class="card">
                 <div class="card-header" id="headingOne-@number">
                     <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne-@number" aria-expanded="true" aria-controls="collapseOne-@number">
-                           @Html.DisplayFor(modelItem => item.Title)
-                                                                                   by @Html.DisplayFor(modelItem => item.Author)
+                        <button class="btn btn-link btn-block text-left text-decoration-none" type="button" data-toggle="collapse" data-target="#collapseOne-@number" aria-expanded="true" aria-controls="collapseOne-@number">
+                           @Html.DisplayFor(modelItem => item.Title) - 
+                           @Html.DisplayFor(modelItem => item.AddDate)
+                           
+
                             @{
                                 if (item.Priority.HasValue)
                                 {
@@ -65,7 +68,7 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne-@number" aria-expanded="true" aria-controls="collapseOne-@number">
                            @Html.DisplayFor(modelItem => item.Title)
-                                                                                   by @Html.DisplayFor(modelItem => item.Author)
+
                             @{
                                 if (item.Priority.HasValue)
                                 {
@@ -112,7 +115,7 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne-@number" aria-expanded="true" aria-controls="collapseOne-@number">
                            @Html.DisplayFor(modelItem => item.Title)
-                                                                                   by @Html.DisplayFor(modelItem => item.Author)
+
                             @{
                                 if (item.Priority.HasValue)
                                 {
