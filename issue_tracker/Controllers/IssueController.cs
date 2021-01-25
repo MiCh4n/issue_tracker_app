@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using issue_tracker.Data;
 using issue_tracker.Models;
+using issue_tracker.Views.Issue;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,11 +48,99 @@ namespace issue_tracker.Controllers
             catch (DbUpdateException)
             {
                 //Log the error (uncomment ex variable name and write a log.
-                ModelState.AddModelError("", "Unable to save changes. " +
-                                             "Try again, and if the problem persists " +
-                                             "see your system administrator.");
+                ModelState.AddModelError("", "Unable to save changes.");
             }
             return View(issue);
+        }
+        //GET: Edit
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var issue = await _context.Issues.FindAsync(id);
+            if (issue == null)
+            {
+                return NotFound();
+            }
+            return View(issue);
+        }
+        //POST: Edit
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var issueToUpdate = await _context.Issues.FirstOrDefaultAsync(i => i.ID == id);
+            if (await TryUpdateModelAsync<Issue>(
+                issueToUpdate,
+                "",
+                i => i.Title, i => i.Description))
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Data));
+                }
+                catch (DbUpdateException /* ex */)
+                {
+                    ModelState.AddModelError("", "Unable to save changes.");
+                }
+            }
+            return View(issueToUpdate);
+        }
+        
+        // GET: Delete
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var issue = await _context.Issues
+                .AsNoTracking()
+                .FirstOrDefaultAsync(i => i.ID == id);
+            if (issue == null)
+            {
+                return NotFound();
+            }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] =
+                    "Delete failed.";
+            }
+
+            return View(issue);
+        }
+        
+        // POST: Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var issue = await _context.Issues.FindAsync(id);
+            if (issue == null)
+            {
+                return RedirectToAction(nameof(Data));
+            }
+
+            try
+            {
+                _context.Issues.Remove(issue);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Data));
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
         }
     }
 }

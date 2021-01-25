@@ -10,7 +10,14 @@ namespace issue_tracker.Models
 {
     public enum Priority
     {
-        low, medium, high, critical
+        [Display(Name = "Low")]
+        low, 
+        [Display(Name = "Medium")]
+        medium, 
+        [Display(Name = "High")]
+        high, 
+        [Display(Name = "Critical")]
+        critical
     }
     
     public enum Phase
