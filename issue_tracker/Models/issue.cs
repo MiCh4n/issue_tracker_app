@@ -24,10 +24,15 @@ namespace issue_tracker.Models
     {
         todo, inprogress, done
     }
+    public class ApplicationUser : IdentityUser
+    {
+        public virtual ICollection<Issue> Issues { get; set; }
+    }
     public class Issue
     {
 
         public int ID { get; set; }
+        public virtual ApplicationUser Author { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Priority? Priority { get; set; }
