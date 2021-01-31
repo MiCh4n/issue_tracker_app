@@ -32,7 +32,9 @@ namespace issue_tracker.Models
     {
 
         public int ID { get; set; }
+        [ForeignKey("AuthorId")]
         public virtual ApplicationUser Author { get; set; }
+        public string AuthorId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Priority? Priority { get; set; }
