@@ -4,6 +4,7 @@ using issue_tracker.Data;
 using issue_tracker.Models;
 using issue_tracker.Views.Issue;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +14,13 @@ namespace issue_tracker.Controllers
     public class IssueController : Controller
     {
         private readonly IssueContext _context;
+        private readonly UserManager<ApplicationUser> _currentUser;
 
-        public IssueController(IssueContext context)
+        public IssueController(IssueContext context,
+            UserManager<ApplicationUser> currentUser)
         {
             _context = context;
+            _currentUser = currentUser;
         }
     
         public async Task<IActionResult> Data()
@@ -41,6 +45,7 @@ namespace issue_tracker.Controllers
                     _context.Add(issue);
                     issue.Phase = Phase.todo;
                     issue.AddDate = DateTime.Now;
+                    issue.AuthorId = _currentUser.GetUserId(User);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Data));
                 }
