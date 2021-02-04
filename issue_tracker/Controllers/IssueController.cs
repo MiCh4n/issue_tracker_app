@@ -155,7 +155,19 @@ namespace issue_tracker.Controllers
             {
                 return RedirectToAction(nameof(Data));
             }
-            return RedirectToAction(nameof(Data));
+
+            try
+            {
+                _context.Issues.Update(issue);
+                issue.Phase = Phase.inprogress;
+                issue.ReviewerId = _currentUser.GetUserId(User);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Data));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(nameof(Data));
+            }
         }
     }
 }
