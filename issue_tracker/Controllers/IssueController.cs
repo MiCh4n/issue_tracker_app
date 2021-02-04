@@ -147,5 +147,15 @@ namespace issue_tracker.Controllers
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
         }
+
+        public async Task<IActionResult> Take(int? id)
+        {
+            var issue = await _context.Issues.FindAsync(id);
+            if (issue == null)
+            {
+                return RedirectToAction(nameof(Data));
+            }
+            return RedirectToAction(nameof(Data));
+        }
     }
 }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using issue_tracker.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace issue_tracker.Data
 {
