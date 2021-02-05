@@ -26,15 +26,24 @@ namespace issue_tracker.Models
     }
     public class ApplicationUser : IdentityUser
     {
-        public virtual ICollection<Issue> Issues { get; set; }
+        [InverseProperty("ApplicationUserAuthorId")]
+        public virtual List<Issue> AuthorRelationsId { get; set; }
+        [InverseProperty("ApplicationUserReviewer")]
+        public virtual List<Issue> ReviewerRelations { get; set; }
     }
+
     public class Issue
     {
-
         public int ID { get; set; }
+        public string AuthorName { get; set; }
+        
         [ForeignKey("AuthorId")]
-        public virtual ApplicationUser Author { get; set; }
+        public virtual ApplicationUser ApplicationUserAuthorId { get; set; }
         public string AuthorId { get; set; }
+        
+        [ForeignKey("ReviewerId")]
+        public virtual ApplicationUser ApplicationUserReviewer { get; set; }
+        public string ReviewerId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Priority? Priority { get; set; }

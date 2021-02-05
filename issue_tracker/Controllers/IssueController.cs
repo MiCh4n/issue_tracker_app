@@ -46,6 +46,7 @@ namespace issue_tracker.Controllers
                     issue.Phase = Phase.todo;
                     issue.AddDate = DateTime.Now;
                     issue.AuthorId = _currentUser.GetUserId(User);
+                    issue.AuthorName = _currentUser.GetUserName(User);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Data));
                 }
@@ -145,6 +146,49 @@ namespace issue_tracker.Controllers
             catch (DbUpdateException /* ex */)
             {
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
+        }
+
+        public async Task<IActionResult> Take(int? id)
+        {
+            var issue = await _context.Issues.FindAsync(id);
+            if (issue == null)
+            {
+                return RedirectToAction(nameof(Data));
+            }
+
+            try
+            {
+                _context.Issues.Update(issue);
+                issue.Phase = Phase.inprogress;
+                issue.ReviewerId = _currentUser.GetUserId(User);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Data));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(nameof(Data));
+            }
+        }
+        
+        public async Task<IActionResult> Close(int? id)
+        {
+            var issue = await _context.Issues.FindAsync(id);
+            if (issue == null)
+            {
+                return RedirectToAction(nameof(Data));
+            }
+
+            try
+            {
+                _context.Issues.Update(issue);
+                issue.Phase = Phase.done;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Data));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(nameof(Data));
             }
         }
     }
