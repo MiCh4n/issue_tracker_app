@@ -26,8 +26,8 @@ namespace issue_tracker.Models
     }
     public class ApplicationUser : IdentityUser
     {
-        [InverseProperty("ApplicationUserAuthor")]
-        public virtual List<Issue> AuthorRelations { get; set; }
+        [InverseProperty("ApplicationUserAuthorId")]
+        public virtual List<Issue> AuthorRelationsId { get; set; }
         [InverseProperty("ApplicationUserReviewer")]
         public virtual List<Issue> ReviewerRelations { get; set; }
     }
@@ -35,9 +35,10 @@ namespace issue_tracker.Models
     public class Issue
     {
         public int ID { get; set; }
+        public string AuthorName { get; set; }
         
         [ForeignKey("AuthorId")]
-        public virtual ApplicationUser ApplicationUserAuthor { get; set; }
+        public virtual ApplicationUser ApplicationUserAuthorId { get; set; }
         public string AuthorId { get; set; }
         
         [ForeignKey("ReviewerId")]
