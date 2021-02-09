@@ -32,6 +32,12 @@ namespace issue_tracker.Models
         public virtual List<Issue> ReviewerRelations { get; set; }
     }
 
+    public class ApplicationRole : IdentityRole
+    {
+        [DefaultValue("User")]
+        public override string Name { get; set; }
+    }
+
     public class Issue
     {
         public int ID { get; set; }

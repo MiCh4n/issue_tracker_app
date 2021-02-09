@@ -22,17 +22,19 @@ namespace issue_tracker.Controllers
             _context = context;
             _currentUser = currentUser;
         }
-    
+
         public async Task<IActionResult> Data()
         {
             return View(await _context.Issues.ToListAsync());
         }
+
         //GET      issue create
-         public IActionResult Create()
-                {
-                    return View();
-                }
-         //POST    issue create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //POST    issue create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
@@ -56,8 +58,10 @@ namespace issue_tracker.Controllers
                 //Log the error (uncomment ex variable name and write a log.
                 ModelState.AddModelError("", "Unable to save changes.");
             }
+
             return View(issue);
         }
+
         //GET: Edit
         public async Task<IActionResult> Edit(int? id)
         {
@@ -71,8 +75,10 @@ namespace issue_tracker.Controllers
             {
                 return NotFound();
             }
+
             return View(issue);
         }
+
         //POST: Edit
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -82,6 +88,7 @@ namespace issue_tracker.Controllers
             {
                 return NotFound();
             }
+
             var issueToUpdate = await _context.Issues.FirstOrDefaultAsync(i => i.ID == id);
             if (await TryUpdateModelAsync<Issue>(
                 issueToUpdate,
@@ -98,9 +105,10 @@ namespace issue_tracker.Controllers
                     ModelState.AddModelError("", "Unable to save changes.");
                 }
             }
+
             return View(issueToUpdate);
         }
-        
+
         // GET: Delete
         public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
@@ -132,7 +140,7 @@ namespace issue_tracker.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var issue = await _context.Issues.FindAsync(id);
-            if (issue == null)
+            if (issue == null || issue.Phase != Phase.todo)
             {
                 return RedirectToAction(nameof(Data));
             }
