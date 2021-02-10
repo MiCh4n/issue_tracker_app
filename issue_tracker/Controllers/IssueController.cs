@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using issue_tracker.Data;
 using issue_tracker.Models;
@@ -27,6 +28,53 @@ namespace issue_tracker.Controllers
         {
             return View(await _context.Issues.ToListAsync());
         }
+        
+        [HttpGet]
+        public IActionResult AdminPanel()
+        {
+            var users = _currentUser.Users;
+            return View(users);
+        }
+        public async Task<IActionResult> AssignRole(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var user = await _currentUser.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+        
+        [HttpPost, ActionName("AssignRole")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignRolePost(string id) 
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var userToUpdate = await _currentUser.FindByIdAsync(id);
+            try
+            {
+                
+                var role = Request.Form["role"];
+                await _currentUser.AddToRoleAsync(userToUpdate, role);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(AdminPanel));
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Unable to save changes.");
+            }
+            return View(userToUpdate);
+        }
+        
+    
 
         //GET      issue create
         public IActionResult Create()
