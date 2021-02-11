@@ -1,14 +1,20 @@
-﻿<h1>Edit issue</h1>
+﻿<h1>Assign role</h1>
 <hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AssignRole">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input type="text" id="txtName" name="role" value=""/>
+                <label>Role</label>
+                <input list="roles" name="role" id="txtName">
+                <datalist id="roles">
+                    <option value="admin"></option>
+                    <option value="developer"></option>
+                    <option value="user"></option>
+                </datalist>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary"/>
+                <input type="submit" value="Assign" class="btn btn-primary"/>
             </div>
         </form>
     </div>

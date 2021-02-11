@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using issue_tracker.Data;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace issue_tracker.Models
 {
     public class AdministratorAndRoles
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public AdministratorAndRoles(ApplicationDbContext context)
         {
@@ -28,7 +25,7 @@ namespace issue_tracker.Models
                 NormalizedEmail = "admin@issue-tracker.com",
                 SecurityStamp = Guid.NewGuid().ToString()
             };
-            
+
             if (!_context.Roles.Any(r => r.Name == "admin"))
             {
                 var roleStore = new RoleStore<IdentityRole>(_context);
@@ -44,6 +41,21 @@ namespace issue_tracker.Models
                 await userStore.CreateAsync(user);
                 await userStore.AddToRoleAsync(user, "admin");
             }
+
+            await _context.SaveChangesAsync();
+            if (!_context.Roles.Any(r => r.Name == "developer"))
+            {
+                var roleStore = new RoleStore<IdentityRole>(_context);
+                await roleStore.CreateAsync(new IdentityRole {Name = "developer", NormalizedName = "developer"});
+            }
+
+            await _context.SaveChangesAsync();
+            if (!_context.Roles.Any(r => r.Name == "user"))
+            {
+                var roleStore = new RoleStore<IdentityRole>(_context);
+                await roleStore.CreateAsync(new IdentityRole {Name = "user", NormalizedName = "user"});
+            }
+
             await _context.SaveChangesAsync();
         }
     }

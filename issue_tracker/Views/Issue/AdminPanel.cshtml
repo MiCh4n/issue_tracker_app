@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@using issue_tracker.Views.Issue
-@model IEnumerable<ApplicationUser>
-
+﻿@model IEnumerable<ApplicationUser>
 <h1>All Users</h1>
 
 @if (Model.Any())
@@ -17,11 +13,8 @@
                 <h5 class="card-title">Username: @user.UserName</h5>
                 <h5 class="card-title">Email: @user.Email</h5>
             </div>
-            @{
-                
-            }
             <div class="card-footer">
-                 <a asp-action="AssignRole" asp-route-id="@user.Id" class="text-danger">Assign Role</a>
+                <a asp-action="AssignRole" asp-route-id="@user.Id" class="text-danger">Assign Role</a>
             </div>
         </div>
     }
