@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Issue>
-
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Issue>
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Dashboard";
     var number = 0;
@@ -52,32 +53,40 @@
                                         }
                                     }
                                 }
-                                <a asp-action="Edit" asp-route-id="@item.ID" class="text-info ml-2">Edit</a>
-                                <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger">Delete</a>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-warning btn-block" data-toggle="modal" data-target="#Modal_@number">
-                                    Take
-                                </button>
+                                @{
+                                    if (item.AuthorId == UserManager.GetUserId(User))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.ID" class="text-info ml-2">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger">Delete</a>
+                                    }
+                                    if (User.IsInRole("admin") || User.IsInRole("developer"))
+                                    {
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-warning btn-block" data-toggle="modal" data-target="#Modal_@number">
+                                            Take
+                                        </button>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="Modal_@number" tabindex="-1" aria-labelledby="ModalLabel_@number" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ModalLabel_@number">Are you sure?</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a asp-action="Take" asp-route-id="@item.ID">
-                                                    <button type="button" class="btn btn-primary">Confirm</button>
-                                                </a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Modal_@number" tabindex="-1" aria-labelledby="ModalLabel_@number" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="ModalLabel_@number">Are you sure?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <a asp-action="Take" asp-route-id="@item.ID">
+                                                            <button type="button" class="btn btn-primary">Confirm</button>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    }
+                                }
                             </button>
                         </h2>
                     </div>
@@ -132,31 +141,39 @@
                                         }
                                     }
                                 }
-                                <a asp-action="Edit" asp-route-id="@item.ID" class="text-info ml-2">Edit</a>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#Modal_@number">
-                                    Close
-                                </button>
+                                @{
+                                    if (item.AuthorId == UserManager.GetUserId(User))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.ID" class="text-info ml-2">Edit</a>
+                                    }
+                                    if (User.IsInRole("admin") || User.IsInRole("developer"))
+                                    {
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#Modal_@number">
+                                            Close
+                                        </button>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="Modal_@number" tabindex="-1" aria-labelledby="ModalLabel_@number" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ModalLabel_@number">Are you sure?</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a asp-action="Close" asp-route-id="@item.ID" class="ml-3 text-danger font-weight-bold">
-                                                    <button type="button" class="btn btn-primary">Confirm</button>
-                                                </a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Modal_@number" tabindex="-1" aria-labelledby="ModalLabel_@number" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="ModalLabel_@number">Are you sure?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <a asp-action="Close" asp-route-id="@item.ID" class="ml-3 text-danger font-weight-bold">
+                                                            <button type="button" class="btn btn-primary">Confirm</button>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    }
+                                }
                             </button>
                         </h2>
                     </div>
